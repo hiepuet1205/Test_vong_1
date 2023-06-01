@@ -12,7 +12,7 @@ public class LinkedList {
     public void add (int value){
         if(head == null){
             // linkedlist empty
-            head = new Node(value, null, null);
+            head = new Node(value, null);
         }else{
             Node curr = head;
 
@@ -20,7 +20,7 @@ public class LinkedList {
                 curr = curr.getNext();
             }
 
-            curr.setNext(new Node(value, curr, null));
+            curr.setNext(new Node(value, null));
         }
 
         size++;
@@ -33,22 +33,22 @@ public class LinkedList {
     }
 
     public void remove(Node nodeToRemove){
-        if (nodeToRemove == null) {
+        if (nodeToRemove == null || head == null) {
             return;
         }
 
-        Node prev = nodeToRemove.getPrev();
-        Node next = nodeToRemove.getNext();
+        Node curr = head;
 
-        if (prev == null) {
-            // Xóa node đầu tiên
-            head = next;
-        } else {
-            prev.setNext(next);
+        if(curr == nodeToRemove){
+            head = head.getNext();
         }
 
-        if (next != null) {
-            next.setPrev(prev);
+        while(curr.getNext() != null && curr.getNext() != nodeToRemove){
+            curr = curr.getNext();
+        }
+
+        if(curr.getNext() != null){
+            curr.setNext(curr.getNext().getNext());
         }
 
         size--;
