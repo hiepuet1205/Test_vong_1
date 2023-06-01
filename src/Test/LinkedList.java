@@ -33,27 +33,24 @@ public class LinkedList {
     }
 
     public void remove(Node nodeToRemove){
-        Node curr = head;
-        Node prev = curr;
-
-        // node can xoa la node dau tien
-        if(curr != null && curr == nodeToRemove){
-            head = curr.getNext();
-            size--;
-        }
-
-        while(curr != null && curr != nodeToRemove){
-            prev = curr;
-            curr = curr.getNext();
-        }
-
-        // khong tim thay node can xoa
-        if(curr == null){
+        if (nodeToRemove == null) {
             return;
         }
 
-        // xoa node
-        prev.setNext(curr.getNext());
+        Node prev = nodeToRemove.getPrev();
+        Node next = nodeToRemove.getNext();
+
+        if (prev == null) {
+            // Xóa node đầu tiên
+            head = next;
+        } else {
+            prev.setNext(next);
+        }
+
+        if (next != null) {
+            next.setPrev(prev);
+        }
+
         size--;
     }
 
